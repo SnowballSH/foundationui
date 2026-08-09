@@ -4,7 +4,7 @@ WORKDIR /build
 COPY . .
 RUN bun install --frozen-lockfile && bun run build
 WORKDIR /build/apps/dashboard
-RUN bun install --frozen-lockfile && bun run build
+RUN bun install --frozen-lockfile && bun run build && rm -rf node_modules /build/node_modules
 
 FROM docker.io/library/caddy:2@sha256:844f60b64e4724a5aa8245e019dace0d3f199f7433ce6c57676cb30a920dbad9
 RUN setcap -r /usr/bin/caddy
