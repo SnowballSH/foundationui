@@ -1,0 +1,10 @@
+.git
+node_modules
+apps/dashboard/node_modules
+apps/dashboard/dist
+apps/dashboard/test-results
+dist
+.svelte-kit
+fixtures
+*.tgz
+test-results

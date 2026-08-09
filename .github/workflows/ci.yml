@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        with:
+          version: 11
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun run lint
+      - run: bun run test
+      - run: bun run parity
+      - run: bun run contrast
+      - run: bun run build
+      - run: bun run scripts/check-pack.ts
+      - run: cd apps/dashboard && bun install --frozen-lockfile
+      - run: cd apps/dashboard && bunx playwright install --with-deps chromium
+      - run: cd apps/dashboard && ./a11y.sh
+      - run: ./scripts/run-fixture.sh npm-react npm 4331
+      - run: ./scripts/run-fixture.sh pnpm-svelte pnpm 4332
+      - run: ./scripts/run-fixture.sh bun-react bun 4333
