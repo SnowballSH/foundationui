@@ -4,6 +4,13 @@ import { compositeOver, contrastRatio, parseColor } from "./color.ts";
 
 const MIN_RATIO = 4.5;
 const INKS = ["--fui-ink", "--fui-ink-secondary", "--fui-ink-muted"];
+const CODE = [
+  "--fui-code-blue",
+  "--fui-code-green",
+  "--fui-code-warm",
+  "--fui-code-violet",
+  "--fui-code-muted",
+];
 const GLASSES = ["--fui-glass-1", "--fui-glass-2", "--fui-glass-3"];
 const SURFACES = ["--fui-surface-base", "--fui-surface-raised"];
 
@@ -26,6 +33,21 @@ for (const theme of ["light", "dark"] as const) {
       (g) => [g, compositeOver(parseColor(value(g, theme)), base)] as const,
     ),
   ];
+  const codeBackgrounds = backgrounds.filter(([name]) =>
+    SURFACES.includes(name),
+  );
+  for (const code of CODE) {
+    const fg = parseColor(value(code, theme));
+    for (const [bgName, bg] of codeBackgrounds) {
+      const ratio = contrastRatio(fg, bg);
+      if (ratio < MIN_RATIO) {
+        failures++;
+        console.error(
+          `FAIL ${theme}: ${code} on ${bgName} = ${ratio.toFixed(2)} < ${MIN_RATIO}`,
+        );
+      }
+    }
+  }
   for (const ink of INKS) {
     const fg = parseColor(value(ink, theme));
     for (const [bgName, bg] of backgrounds) {

@@ -2,6 +2,7 @@
   import type { HTMLAttributes } from "svelte/elements";
   import { proseRecipe } from "../recipes/prose.js";
   import { focusableWhenScrollable } from "../recipes/scrollable.js";
+  import { remapCodeColors } from "../recipes/code-colors.js";
 
   let {
     html,
@@ -20,7 +21,10 @@
   let root = $state<HTMLDivElement>();
   $effect(() => {
     void html;
-    if (root) focusableWhenScrollable(root);
+    if (root) {
+      remapCodeColors(root);
+      focusableWhenScrollable(root);
+    }
   });
 </script>
 

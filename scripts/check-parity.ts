@@ -12,7 +12,7 @@ const pascal = (slug: string) =>
 
 const recipes = readdirSync(path("src/recipes"))
   .filter(
-    (f) => f.endsWith(".ts") && !["theme.ts", "scrollable.ts"].includes(f),
+    (f) => f.endsWith(".ts") && !["theme.ts", "scrollable.ts", "code-colors.ts"].includes(f),
   )
   .map((f) => f.replace(/\.ts$/, ""));
 

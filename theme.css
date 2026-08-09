@@ -1,3 +1,5 @@
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme inline {
   --color-surface: var(--fui-surface-base);
   --color-surface-raised: var(--fui-surface-raised);
@@ -22,6 +24,11 @@
   --font-sans: var(--fui-font-sans);
   --font-display: var(--fui-font-display);
   --font-mono: var(--fui-font-mono);
+  --color-code-blue: var(--fui-code-blue);
+  --color-code-green: var(--fui-code-green);
+  --color-code-warm: var(--fui-code-warm);
+  --color-code-violet: var(--fui-code-violet);
+  --color-code-muted: var(--fui-code-muted);
   --text-prose: var(--fui-text-prose);
   --leading-prose: var(--fui-leading-prose);
 }
