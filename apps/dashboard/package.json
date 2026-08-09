@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "a11y": "playwright test"
+    "a11y": "./a11y.sh"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",

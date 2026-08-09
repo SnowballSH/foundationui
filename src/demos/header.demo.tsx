@@ -5,12 +5,12 @@ export default function HeaderDemo() {
     <div className="overflow-hidden rounded-md border border-line">
       <Header className="static">
         <span className="font-display font-semibold">Foundation UI</span>
-        <nav className="flex items-center gap-4 text-sm text-ink-secondary">
+        <div className="flex items-center gap-4 text-sm text-ink-secondary">
           <span>Overview</span>
           <span>Tokens</span>
           <Badge tone="aurora">v1</Badge>
           <ThemeToggle />
-        </nav>
+        </div>
       </Header>
       <div className="h-16 bg-surface" />
     </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { HTMLAttributes } from "svelte/elements";
   import { proseRecipe } from "../recipes/prose.js";
+  import { focusableWhenScrollable } from "../recipes/scrollable.js";
 
   let {
     html,
@@ -15,9 +16,15 @@
     html: string;
     class?: string;
   } = $props();
+
+  let root = $state<HTMLDivElement>();
+  $effect(() => {
+    void html;
+    if (root) focusableWhenScrollable(root);
+  });
 </script>
 
-<div class={proseRecipe({ className })} {...rest}>
+<div bind:this={root} class={proseRecipe({ className })} {...rest}>
   <!-- eslint-disable-next-line svelte/no-at-html-tags -- trusted pre-rendered pipeline output -->
   {@html html}
 </div>

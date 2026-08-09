@@ -25,6 +25,7 @@
     children?: Snippet;
   } = $props();
 
+  const uid = $props.id();
   const buttons: Record<string, HTMLButtonElement> = {};
 
   function select(next: string) {
@@ -49,9 +50,9 @@
         bind:this={buttons[item.value]}
         type="button"
         role="tab"
-        id={`tab-${item.value}`}
+        id={`${uid}-tab-${item.value}`}
         aria-selected={item.value === value}
-        aria-controls={`panel-${item.value}`}
+        aria-controls={`${uid}-panel-${item.value}`}
         tabindex={item.value === value ? 0 : -1}
         onclick={() => select(item.value)}
         onkeydown={(event) => {
@@ -66,8 +67,8 @@
   </div>
   <div
     role="tabpanel"
-    id={`panel-${value}`}
-    aria-labelledby={`tab-${value}`}
+    id={`${uid}-panel-${value}`}
+    aria-labelledby={`${uid}-tab-${value}`}
     class={tabsPanelRecipe()}
   >
     {@render children?.()}

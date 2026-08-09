@@ -1,0 +1,20 @@
+{
+  "name": "fixture-bun-react",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "foundationui": "file:../../foundationui-0.0.0.tgz",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "tailwindcss": "^4.3.3",
+    "vite": "^7.3.4"
+  }
+}

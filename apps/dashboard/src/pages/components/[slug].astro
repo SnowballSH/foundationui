@@ -61,7 +61,7 @@ const all = discoverDemos();
           </div>
           <figure class={codeBlockRecipe({ className: "mt-4" })}>
             <figcaption class={codeBlockLabelRecipe()}>{entry.slug}.demo.tsx</figcaption>
-            <pre class={codeBlockPreRecipe()}><code>{entry.reactSource}</code></pre>
+            <pre class={codeBlockPreRecipe()} tabindex="0"><code>{entry.reactSource}</code></pre>
           </figure>
         </section>
 
@@ -72,7 +72,7 @@ const all = discoverDemos();
           </div>
           <figure class={codeBlockRecipe({ className: "mt-4" })}>
             <figcaption class={codeBlockLabelRecipe()}>{entry.slug}.demo.svelte</figcaption>
-            <pre class={codeBlockPreRecipe()}><code>{entry.svelteSource}</code></pre>
+            <pre class={codeBlockPreRecipe()} tabindex="0"><code>{entry.svelteSource}</code></pre>
           </figure>
         </section>
       </div>

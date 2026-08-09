@@ -19,7 +19,7 @@ export function CodeBlock({ code, label, className, ...rest }: CodeBlockProps) {
       {label !== undefined && (
         <figcaption className={codeBlockLabelRecipe()}>{label}</figcaption>
       )}
-      <pre className={codeBlockPreRecipe()}>
+      <pre className={codeBlockPreRecipe()} tabIndex={0}>
         <code>{code}</code>
       </pre>
     </figure>

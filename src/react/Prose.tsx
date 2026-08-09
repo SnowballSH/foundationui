@@ -1,5 +1,6 @@
-import type { ComponentPropsWithRef } from "react";
+import { useEffect, useRef, type ComponentPropsWithRef } from "react";
 import { proseRecipe } from "../recipes/prose.js";
+import { focusableWhenScrollable } from "../recipes/scrollable.js";
 
 export type ProseProps = Omit<
   ComponentPropsWithRef<"div">,
@@ -14,8 +15,13 @@ export type ProseProps = Omit<
 };
 
 export function Prose({ html, className, ...rest }: ProseProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (ref.current) focusableWhenScrollable(ref.current);
+  }, [html]);
   return (
     <div
+      ref={ref}
       className={proseRecipe({ className })}
       dangerouslySetInnerHTML={{ __html: html }}
       {...rest}

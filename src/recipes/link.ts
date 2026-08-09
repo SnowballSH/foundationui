@@ -6,7 +6,7 @@ export const linkRecipe = cva(
     variants: {
       subtle: {
         true: "text-ink-secondary no-underline hover:text-ink hover:underline",
-        false: "text-accent hover:underline",
+        false: "text-accent underline hover:opacity-85",
       },
     },
     defaultVariants: { subtle: false },

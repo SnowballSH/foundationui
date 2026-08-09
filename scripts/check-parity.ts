@@ -11,7 +11,9 @@ const pascal = (slug: string) =>
     .join("");
 
 const recipes = readdirSync(path("src/recipes"))
-  .filter((f) => f.endsWith(".ts") && !["theme.ts"].includes(f))
+  .filter(
+    (f) => f.endsWith(".ts") && !["theme.ts", "scrollable.ts"].includes(f),
+  )
   .map((f) => f.replace(/\.ts$/, ""));
 
 const reactBarrel = readFileSync(path("src/react/index.ts"), "utf8");

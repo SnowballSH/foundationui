@@ -1,4 +1,4 @@
-import { useRef, type KeyboardEvent, type ReactNode } from "react";
+import { useId, useRef, type KeyboardEvent, type ReactNode } from "react";
 import {
   tabsListRecipe,
   tabsPanelRecipe,
@@ -25,6 +25,7 @@ export function Tabs({
   className,
   children,
 }: TabsProps) {
+  const uid = useId();
   const refs = useRef(new Map<string, HTMLButtonElement>());
 
   const move = (event: KeyboardEvent, delta: number) => {
@@ -47,9 +48,9 @@ export function Tabs({
             }}
             type="button"
             role="tab"
-            id={`tab-${item.value}`}
+            id={`${uid}-tab-${item.value}`}
             aria-selected={item.value === value}
-            aria-controls={`panel-${item.value}`}
+            aria-controls={`${uid}-panel-${item.value}`}
             tabIndex={item.value === value ? 0 : -1}
             onClick={() => onValueChange?.(item.value)}
             onKeyDown={(event) => {
@@ -64,8 +65,8 @@ export function Tabs({
       </div>
       <div
         role="tabpanel"
-        id={`panel-${value}`}
-        aria-labelledby={`tab-${value}`}
+        id={`${uid}-panel-${value}`}
+        aria-labelledby={`${uid}-tab-${value}`}
         className={tabsPanelRecipe()}
       >
         {children}

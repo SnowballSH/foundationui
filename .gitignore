@@ -7,3 +7,8 @@ test-results/
 playwright-report/
 .DS_Store
 .idea/
+fixtures/*/node_modules/
+fixtures/*/dist/
+fixtures/*/package-lock.json
+fixtures/*/pnpm-lock.yaml
+fixtures/*/bun.lock

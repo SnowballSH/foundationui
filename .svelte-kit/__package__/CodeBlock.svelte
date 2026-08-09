@@ -22,5 +22,5 @@
   {#if label !== undefined}
     <figcaption class={codeBlockLabelRecipe()}>{label}</figcaption>
   {/if}
-  <pre class={codeBlockPreRecipe()}><code>{code}</code></pre>
+  <pre class={codeBlockPreRecipe()} tabindex="0"><code>{code}</code></pre>
 </figure>
