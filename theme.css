@@ -1,0 +1,26 @@
+@theme inline {
+  --color-surface: var(--fui-surface-base);
+  --color-surface-raised: var(--fui-surface-raised);
+  --color-glass-1: var(--fui-glass-1);
+  --color-glass-2: var(--fui-glass-2);
+  --color-glass-3: var(--fui-glass-3);
+  --color-ink: var(--fui-ink);
+  --color-ink-secondary: var(--fui-ink-secondary);
+  --color-ink-muted: var(--fui-ink-muted);
+  --color-accent: var(--fui-accent);
+  --color-aurora: var(--fui-aurora);
+  --color-line: var(--fui-line);
+  --radius-xs: var(--fui-radius-xs);
+  --radius-sm: var(--fui-radius-sm);
+  --radius-md: var(--fui-radius-md);
+  --blur-glass-1: var(--fui-blur-1);
+  --blur-glass-2: var(--fui-blur-2);
+  --blur-glass-3: var(--fui-blur-3);
+  --shadow-float-1: var(--fui-shadow-float-1);
+  --shadow-float-2: var(--fui-shadow-float-2);
+  --font-sans: var(--fui-font-sans);
+  --font-display: var(--fui-font-display);
+  --font-mono: var(--fui-font-mono);
+  --text-prose: var(--fui-text-prose);
+  --leading-prose: var(--fui-leading-prose);
+}

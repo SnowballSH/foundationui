@@ -1,0 +1,81 @@
+:root {
+  --fui-surface-base: #ffffff;
+  --fui-surface-raised: #f6f9fd;
+  --fui-glass-1: rgba(255, 255, 255, 0.72);
+  --fui-glass-2: rgba(244, 249, 255, 0.6);
+  --fui-glass-3: rgba(238, 246, 255, 0.45);
+  --fui-ink: #0c1524;
+  --fui-ink-secondary: #3c4b63;
+  --fui-ink-muted: #56677e;
+  --fui-accent: #2565c7;
+  --fui-aurora: #0e7d62;
+  --fui-line: #ccd9e8;
+  --fui-radius-xs: 4px;
+  --fui-radius-sm: 6px;
+  --fui-radius-md: 10px;
+  --fui-blur-1: 8px;
+  --fui-blur-2: 16px;
+  --fui-blur-3: 24px;
+  --fui-shadow-float-1: 0 2px 10px rgba(12, 21, 36, 0.07);
+  --fui-shadow-float-2: 0 8px 28px rgba(12, 21, 36, 0.11);
+  --fui-font-sans: "Inter Variable", system-ui, sans-serif;
+  --fui-font-display: "Inter Variable", system-ui, sans-serif;
+  --fui-font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --fui-text-prose: 1.0625rem;
+  --fui-leading-prose: 1.75;
+}
+
+[data-theme="dark"] {
+  --fui-surface-base: #0a101c;
+  --fui-surface-raised: #101827;
+  --fui-glass-1: rgba(13, 21, 38, 0.66);
+  --fui-glass-2: rgba(16, 25, 44, 0.55);
+  --fui-glass-3: rgba(20, 30, 52, 0.42);
+  --fui-ink: #e8eef8;
+  --fui-ink-secondary: #aebdd2;
+  --fui-ink-muted: #8c9cb3;
+  --fui-accent: #7dabf5;
+  --fui-aurora: #bb9df7;
+  --fui-line: #2a3a54;
+  --fui-shadow-float-1: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --fui-shadow-float-2: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --fui-surface-base: #0a101c;
+    --fui-surface-raised: #101827;
+    --fui-glass-1: rgba(13, 21, 38, 0.66);
+    --fui-glass-2: rgba(16, 25, 44, 0.55);
+    --fui-glass-3: rgba(20, 30, 52, 0.42);
+    --fui-ink: #e8eef8;
+    --fui-ink-secondary: #aebdd2;
+    --fui-ink-muted: #8c9cb3;
+    --fui-accent: #7dabf5;
+    --fui-aurora: #bb9df7;
+    --fui-line: #2a3a54;
+    --fui-shadow-float-1: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --fui-shadow-float-2: 0 8px 28px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :root,
+  [data-theme="dark"] {
+    --fui-glass-1: var(--fui-surface-raised);
+    --fui-glass-2: var(--fui-surface-raised);
+    --fui-glass-3: var(--fui-surface-base);
+    --fui-blur-1: 0px;
+    --fui-blur-2: 0px;
+    --fui-blur-3: 0px;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  :root,
+  [data-theme="dark"] {
+    --fui-glass-1: var(--fui-surface-raised);
+    --fui-glass-2: var(--fui-surface-raised);
+    --fui-glass-3: var(--fui-surface-base);
+  }
+}
