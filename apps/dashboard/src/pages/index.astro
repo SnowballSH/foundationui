@@ -9,6 +9,7 @@ import SwitchDemo from "../../../../src/demos/switch.demo.svelte";
 import InputDemo from "../../../../src/demos/input.demo.tsx";
 import BadgeDemo from "../../../../src/demos/badge.demo.tsx";
 import { discoverDemos } from "../lib/demos.js";
+import pkg from "../../../../package.json";
 
 const demos = discoverDemos();
 ---
@@ -16,7 +17,7 @@ const demos = discoverDemos();
 <Base>
   <section class="py-8">
     <p class="mb-3 flex items-center gap-2">
-      <span class={badgeRecipe({ tone: "aurora" })}>v0.2</span>
+      <span class={badgeRecipe({ tone: "aurora" })}>v{pkg.version}</span>
       <span class={badgeRecipe({ tone: "neutral" })}>{demos.length} components · React + Svelte</span>
     </p>
     <h1 class="max-w-[26ch] font-display text-4xl leading-tight font-semibold text-balance sm:text-5xl">
