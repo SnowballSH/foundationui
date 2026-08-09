@@ -13,6 +13,10 @@ export default tseslint.config(
     languageOptions: { parserOptions: { parser: tseslint.parser } },
   },
   {
+    files: ["**/*.svelte", "**/*.ts", "**/*.tsx"],
+    rules: { "no-undef": "off" },
+  },
+  {
     files: ["**/*.tsx"],
     plugins: { "react-hooks": reactHooks },
     rules: reactHooks.configs.recommended.rules,

@@ -21,18 +21,34 @@ const problems: string[] = [];
 for (const slug of recipes) {
   const name = pascal(slug);
   const legs: Array<[string, boolean]> = [
-    [`react binding src/react/${name}.tsx`, existsSync(path(`src/react/${name}.tsx`))],
-    [`svelte binding src/svelte/${name}.svelte`, existsSync(path(`src/svelte/${name}.svelte`))],
-    [`react demo src/demos/${slug}.demo.tsx`, existsSync(path(`src/demos/${slug}.demo.tsx`))],
-    [`svelte demo src/demos/${slug}.demo.svelte`, existsSync(path(`src/demos/${slug}.demo.svelte`))],
+    [
+      `react binding src/react/${name}.tsx`,
+      existsSync(path(`src/react/${name}.tsx`)),
+    ],
+    [
+      `svelte binding src/svelte/${name}.svelte`,
+      existsSync(path(`src/svelte/${name}.svelte`)),
+    ],
+    [
+      `react demo src/demos/${slug}.demo.tsx`,
+      existsSync(path(`src/demos/${slug}.demo.tsx`)),
+    ],
+    [
+      `svelte demo src/demos/${slug}.demo.svelte`,
+      existsSync(path(`src/demos/${slug}.demo.svelte`)),
+    ],
     [`react barrel export of ${name}`, reactBarrel.includes(`${name}`)],
     [`svelte barrel export of ${name}`, svelteBarrel.includes(`${name}`)],
   ];
-  for (const [desc, ok] of legs) if (!ok) problems.push(`${slug}: missing ${desc}`);
+  for (const [desc, ok] of legs)
+    if (!ok) problems.push(`${slug}: missing ${desc}`);
 }
 
 for (const p of checkTokenParity()) problems.push(`token parity: ${p}`);
 
 for (const p of problems) console.error(`FAIL parity: ${p}`);
-if (problems.length === 0) console.log(`parity: ${recipes.length} components complete in both frameworks`);
+if (problems.length === 0)
+  console.log(
+    `parity: ${recipes.length} components complete in both frameworks`,
+  );
 process.exit(problems.length > 0 ? 1 : 0);
