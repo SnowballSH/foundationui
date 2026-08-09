@@ -1,6 +1,0 @@
-version: "1.0"
-exclude:
-  - name: ES6PreferShortImport
-  - name: ES6UnusedImports
-    paths:
-      - apps/dashboard/src
