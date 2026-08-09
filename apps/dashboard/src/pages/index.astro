@@ -16,11 +16,13 @@ const demos = discoverDemos();
 <Base>
   <section class="py-8">
     <p class="mb-3 flex items-center gap-2">
-      <span class={badgeRecipe({ tone: "aurora" })}>v0.1</span>
+      <span class={badgeRecipe({ tone: "aurora" })}>v0.2</span>
       <span class={badgeRecipe({ tone: "neutral" })}>{demos.length} components · React + Svelte</span>
     </p>
-    <h1 class="max-w-[26ch] font-display text-4xl leading-tight font-semibold sm:text-5xl">
-      Glacial glass, sharp edges, built for reading.
+    <h1 class="max-w-[26ch] font-display text-4xl leading-tight font-semibold text-balance sm:text-5xl">
+      <span class="bg-linear-to-r from-accent to-aurora bg-clip-text text-transparent"
+        >Glacial glass</span
+      >, sharp edges, built for reading.
     </h1>
     <p class="mt-4 max-w-[58ch] text-lg leading-relaxed text-ink-secondary">
       Foundation UI is the design source of truth for SnowballSH frontends. Everything on this site

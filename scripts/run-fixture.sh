@@ -7,7 +7,7 @@ port="${3:-4331}"
 root="$(cd "$(dirname "$0")/.." && pwd)"
 
 cd "$root"
-[ -f "foundationui-0.1.0.tgz" ] || { bun run build >/dev/null; npm pack --silent >/dev/null; }
+compgen -G "foundationui-*.tgz" >/dev/null || { bun run build >/dev/null; npm pack --silent >/dev/null; }
 
 cd "fixtures/$dir"
 rm -rf node_modules dist package-lock.json pnpm-lock.yaml bun.lock

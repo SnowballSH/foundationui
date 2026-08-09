@@ -3,10 +3,10 @@ import { cva } from "class-variance-authority";
 export const proseRecipe = cva(
   [
     "max-w-[70ch] font-sans text-prose leading-prose text-ink",
-    "[&_h1]:mt-10 [&_h1]:mb-4 [&_h1]:font-display [&_h1]:text-3xl [&_h1]:leading-tight [&_h1]:font-semibold",
-    "[&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:leading-tight [&_h2]:font-semibold",
+    "[&_h1]:mt-10 [&_h1]:mb-4 [&_h1]:font-display [&_h1]:text-3xl [&_h1]:leading-tight [&_h1]:font-semibold [&_h1]:text-balance",
+    "[&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:leading-tight [&_h2]:font-semibold [&_h2]:text-balance",
     "[&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-semibold",
-    "[&_p]:my-4",
+    "[&_p]:my-4 [&_p]:text-pretty",
     "[&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:opacity-85",
     "[&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1",
     "[&_table]:my-6 [&_table]:w-full [&_table]:border-collapse [&_table]:text-[0.95em]",
