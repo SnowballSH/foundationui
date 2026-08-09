@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sample Document</title><style>/* Alignment */
+mtable.right-align mtd,
+mtable mtd.right-align,
+mtable.left-align mtd.right-align,
+mtable.aligned mtd:nth-child(odd) {
+  justify-items: end;
+  text-align: right;
+}
+mtable.cases mtd,
+mtable.left-align mtd,
+mtable mtd.left-align,
+mtable.aligned mtd:nth-child(even),
+math:is(:not([display])) > mtable.multiline-equation mtd {
+  justify-items: start;
+  text-align: left;
+}
+mtable.cases mtd,
+mtable.aligned mtd,
+mtable mtd.flushed,
+mtable mtd.left-flush {
+  padding-left: 0;
+}
+mtable.cases mtd,
+mtable.aligned mtd,
+mtable mtd.flushed,
+mtable mtd.right-flush {
+  padding-right: 0;
+}
+
+/* Tables */
+mtable {
+  math-style: inherit;
+}
+mtd {
+  math-depth: auto-add;
+  math-style: compact;
+  math-shift: compact;
+}
+
+/* Equations */
+mtable.multiline-equation mtd {
+  math-depth: inherit;
+  math-style: inherit;
+  math-shift: inherit;
+  padding: 0;
+}
+math > mtable.multiline-equation mtr:not(:last-child) mtd {
+  padding-bottom: 0.5em;
+}
+
+/* Fractions */
+mfrac {
+  padding-inline: 0;
+  margin-inline: 0.1em;
+}
+
+/* Accents */
+mover[accent="true" i] > :first-child {
+  font-feature-settings: "dtls";
+}
+mover.dotted[accent="true" i] > :first-child {
+  font-feature-settings: "dtls" 0;
+}
+
+/* Other rules for scriptlevel, displaystyle and math-shift */
+munder > :nth-child(2),
+munderover > :nth-child(2) {
+  math-shift: compact
+}
+munder[accentunder="true" i] > :not(:first-child),
+mover[accent="true" i] > :not(:first-child) {
+  math-depth: inherit;
+  math-style: inherit;
+  math-shift: inherit;
+}</style></head><body><h2>Waves on a Lattice</h2><p>When a disturbance travels through a discrete medium, its dispersion relation departs from the continuum limit. The angular frequency <math><mi>𝜔</mi></math> of a wave with wavenumber <math><mi>𝑘</mi></math> on a chain of coupled oscillators satisfies</p><math display="block"><mi>𝜔</mi><mrow><mo>(</mo><mi>𝑘</mi><mo>)</mo></mrow><mo>=</mo><mn>2</mn><msqrt><mfrac><mi>𝜅</mi><mi>𝑚</mi></mfrac></msqrt><mrow><mo>|</mo><mrow><mo lspace="0em" rspace="0em">sin</mo><mrow><mo>(</mo><mfrac><mrow><mi>𝑘</mi><mi>𝑎</mi></mrow><mn>2</mn></mfrac><mo>)</mo></mrow></mrow><mo>|</mo></mrow></math><p>which reduces to the linear relation <math><mi>𝜔</mi><mo>≈</mo><mi>𝑐</mi><mi>𝑘</mi></math> for small <math><mi>𝑘</mi><mi>𝑎</mi></math>.</p><h3>Parameters</h3><table><thead><tr><th>Symbol</th><th>Meaning</th><th>Unit</th></tr></thead><tbody><tr><td><math><mi>𝜅</mi></math></td><td>coupling stiffness</td><td>N/m</td></tr><tr><td><math><mi>𝑚</mi></math></td><td>oscillator mass</td><td>kg</td></tr><tr><td><math><mi>𝑎</mi></math></td><td>lattice spacing</td><td>m</td></tr></tbody></table><p>The group velocity<sup id="loc-1" role="doc-noteref"><a href="#loc-2">1</a></sup> vanishes at the zone boundary <math><mi>𝑘</mi><mo>=</mo><mfrac><mi>𝜋</mi><mi>𝑎</mi></mfrac></math>.</p><h3>Numerical check</h3><pre><code data-lang="python"><span style="color: #d73948">import</span> math
+
+<span style="color: #d73948">def</span> <span style="color: #4b69c6">omega</span>(k, kappa<span style="color: #d73948">=</span><span style="color: #b60157">1</span><span style="color: #b60157">.</span><span style="color: #b60157">0</span>, m<span style="color: #d73948">=</span><span style="color: #b60157">1</span><span style="color: #b60157">.</span><span style="color: #b60157">0</span>, a<span style="color: #d73948">=</span><span style="color: #b60157">1</span><span style="color: #b60157">.</span><span style="color: #b60157">0</span>):
+    <span style="color: #d73948">return</span> <span style="color: #b60157">2</span> <span style="color: #d73948">*</span> math.<span style="color: #4b69c6">sqrt</span>(kappa <span style="color: #d73948">/</span> m) <span style="color: #d73948">*</span> <span style="color: #4b69c6">abs</span>(math.<span style="color: #4b69c6">sin</span>(k <span style="color: #d73948">*</span> a <span style="color: #d73948">/</span> <span style="color: #b60157">2</span>))</code></pre><h3>Phase portrait</h3><svg style="overflow: visible; width: 5.090909091em; height: 5.090909091em; display: block" viewBox="0 0 56 56" width="56pt" height="56pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:h5="http://www.w3.org/1999/xhtml"><path fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 0 0m 0 28c 0 -15.449952 12.550048 -28 28 -28c 15.449952 0 28 12.550048 28 28c 0 15.449952 -12.550048 28 -28 28c -15.449952 0 -28 -12.550048 -28 -28"/></svg><section role="doc-endnotes"><ol style="list-style-type: none"><li id="loc-2"><sup role="doc-backlink"><a href="#loc-1">1</a></sup>The velocity at which the envelope of a wave packet propagates.</li></ol></section></body></html>
