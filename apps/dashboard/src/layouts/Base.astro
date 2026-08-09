@@ -1,0 +1,93 @@
+---
+import "../styles/app.css";
+import { headerInnerRecipe, headerRecipe } from "../../../../src/recipes/header.js";
+import { footerInnerRecipe, footerRecipe } from "../../../../src/recipes/footer.js";
+import { linkRecipe } from "../../../../src/recipes/link.js";
+import ThemeToggle from "../../../../src/svelte/ThemeToggle.svelte";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Foundation UI", description = "The SnowballSH design system — tokens, recipes, and paired React & Svelte components, documented by the code itself." } = Astro.props;
+
+const nav = [
+  { href: "/", label: "Overview" },
+  { href: "/tokens", label: "Tokens" },
+  { href: "/components/badge", label: "Components" },
+];
+const current = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9D%84%3C/text%3E%3C/svg%3E"
+    />
+    <title>{title}</title>
+    <script is:inline>
+      (() => {
+        let theme = "light";
+        try {
+          const stored = localStorage.getItem("fui-theme");
+          theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+        } catch {}
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body class="min-h-svh bg-surface font-sans text-ink antialiased">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60rem_40rem_at_85%_-10%,color-mix(in_oklab,var(--fui-accent)_14%,transparent),transparent),radial-gradient(50rem_36rem_at_-10%_110%,color-mix(in_oklab,var(--fui-aurora)_12%,transparent),transparent)]"
+    >
+    </div>
+    <header class={headerRecipe()}>
+      <div class={headerInnerRecipe()}>
+        <a href="/" class="font-display text-sm font-semibold tracking-wide text-ink"
+          >❄ SnowballSH <span class="text-ink-secondary">Foundation UI</span></a
+        >
+        <nav class="flex items-center gap-5 text-sm">
+          {
+            nav.map((item) => (
+              <a
+                href={item.href}
+                aria-current={current === item.href ? "page" : undefined}
+                class={linkRecipe({
+                  subtle: !(current === item.href),
+                  className: current === item.href ? "font-medium" : undefined,
+                })}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+          <ThemeToggle client:load />
+        </nav>
+      </div>
+    </header>
+    <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
+      <slot />
+    </main>
+    <footer class={footerRecipe()}>
+      <div class={footerInnerRecipe()}>
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <span>© 2026 SnowballSH · Foundation UI</span>
+          <a href="https://github.com/SnowballSH/foundationui" class={linkRecipe({ subtle: true })}
+            >Source on GitHub</a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

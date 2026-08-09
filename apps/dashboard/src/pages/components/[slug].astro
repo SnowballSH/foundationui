@@ -1,0 +1,81 @@
+---
+import Base from "../../layouts/Base.astro";
+import { discoverDemos } from "../../lib/demos.js";
+import { badgeRecipe } from "../../../../../src/recipes/badge.js";
+import { linkRecipe } from "../../../../../src/recipes/link.js";
+import { panelRecipe } from "../../../../../src/recipes/panel.js";
+import {
+  codeBlockLabelRecipe,
+  codeBlockPreRecipe,
+  codeBlockRecipe,
+} from "../../../../../src/recipes/code-block.js";
+import ReactDemoHost from "../../components/ReactDemoHost.tsx";
+import SvelteDemoHost from "../../components/SvelteDemoHost.svelte";
+
+export function getStaticPaths() {
+  return discoverDemos().map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry: { slug: entry.slug, title: entry.title, reactSource: entry.reactSource, svelteSource: entry.svelteSource } },
+  }));
+}
+
+const { entry } = Astro.props;
+const all = discoverDemos();
+---
+
+<Base title={`${entry.title} — Foundation UI`}>
+  <div class="flex flex-col gap-10 lg:flex-row">
+    <nav class="lg:w-44" aria-label="Components">
+      <p class="mb-2 text-xs font-medium tracking-wide text-ink-muted uppercase">Components</p>
+      <ul class="flex flex-col gap-1 text-sm">
+        {
+          all.map((d) => (
+            <li>
+              <a
+                href={`/components/${d.slug}`}
+                aria-current={d.slug === entry.slug ? "page" : undefined}
+                class={linkRecipe({
+                  subtle: d.slug !== entry.slug,
+                  className: d.slug === entry.slug ? "font-medium" : undefined,
+                })}
+              >
+                {d.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="min-w-0 flex-1">
+      <h1 class="font-display text-3xl font-semibold">{entry.title}</h1>
+      <p class="mt-2 mb-8 text-ink-secondary">
+        One recipe, two bindings — rendered side by side from the same source the package ships.
+      </p>
+
+      <div class="grid gap-6 xl:grid-cols-2">
+        <section>
+          <p class="mb-3"><span class={badgeRecipe({ tone: "accent" })}>React</span></p>
+          <div class={panelRecipe({ tier: "raised", padding: "lg", className: "overflow-x-auto" })}>
+            <ReactDemoHost slug={entry.slug} client:load />
+          </div>
+          <figure class={codeBlockRecipe({ className: "mt-4" })}>
+            <figcaption class={codeBlockLabelRecipe()}>{entry.slug}.demo.tsx</figcaption>
+            <pre class={codeBlockPreRecipe()}><code>{entry.reactSource}</code></pre>
+          </figure>
+        </section>
+
+        <section>
+          <p class="mb-3"><span class={badgeRecipe({ tone: "aurora" })}>Svelte</span></p>
+          <div class={panelRecipe({ tier: "raised", padding: "lg", className: "overflow-x-auto" })}>
+            <SvelteDemoHost slug={entry.slug} client:load />
+          </div>
+          <figure class={codeBlockRecipe({ className: "mt-4" })}>
+            <figcaption class={codeBlockLabelRecipe()}>{entry.slug}.demo.svelte</figcaption>
+            <pre class={codeBlockPreRecipe()}><code>{entry.svelteSource}</code></pre>
+          </figure>
+        </section>
+      </div>
+    </div>
+  </div>
+</Base>

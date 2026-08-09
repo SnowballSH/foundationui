@@ -1,0 +1,94 @@
+---
+import Base from "../layouts/Base.astro";
+import { panelRecipe } from "../../../../src/recipes/panel.js";
+import { badgeRecipe } from "../../../../src/recipes/badge.js";
+import { linkRecipe } from "../../../../src/recipes/link.js";
+import { dividerRecipe } from "../../../../src/recipes/divider.js";
+import ButtonDemo from "../../../../src/demos/button.demo.svelte";
+import SwitchDemo from "../../../../src/demos/switch.demo.svelte";
+import InputDemo from "../../../../src/demos/input.demo.tsx";
+import BadgeDemo from "../../../../src/demos/badge.demo.tsx";
+import { discoverDemos } from "../lib/demos.js";
+
+const demos = discoverDemos();
+---
+
+<Base>
+  <section class="py-8">
+    <p class="mb-3 flex items-center gap-2">
+      <span class={badgeRecipe({ tone: "aurora" })}>v0.1</span>
+      <span class={badgeRecipe({ tone: "neutral" })}>{demos.length} components · React + Svelte</span>
+    </p>
+    <h1 class="max-w-[26ch] font-display text-4xl leading-tight font-semibold sm:text-5xl">
+      Glacial glass, sharp edges, built for reading.
+    </h1>
+    <p class="mt-4 max-w-[58ch] text-lg leading-relaxed text-ink-secondary">
+      Foundation UI is the design source of truth for SnowballSH frontends. Everything on this site
+      is generated from the same tokens, recipes, and components it documents — the code is the
+      design.
+    </p>
+    <p class="mt-6 flex gap-4">
+      <a href="/tokens" class={linkRecipe()}>Explore the tokens</a>
+      <a href="/components/badge" class={linkRecipe({ subtle: true })}>Browse components</a>
+    </p>
+  </section>
+
+  <div class={dividerRecipe()}></div>
+
+  <section class="grid gap-6 py-10 lg:grid-cols-3">
+    <div class={panelRecipe({ tier: "glass" })}>
+      <h2 class="mb-1 font-display font-semibold">Tokens first</h2>
+      <p class="text-sm leading-relaxed text-ink-secondary">
+        Plain CSS custom properties with light and dark tiers, mapped into Tailwind utilities.
+        Consumers import two CSS files and one <code class="font-mono text-xs">@source</code> line.
+      </p>
+    </div>
+    <div class={panelRecipe({ tier: "glass" })}>
+      <h2 class="mb-1 font-display font-semibold">Two frameworks, one recipe</h2>
+      <p class="text-sm leading-relaxed text-ink-secondary">
+        Every component's styling lives in a single recipe shared by its React and Svelte bindings.
+        A parity gate fails the build when either side is missing.
+      </p>
+    </div>
+    <div class={panelRecipe({ tier: "glass" })}>
+      <h2 class="mb-1 font-display font-semibold">Reading comfort wins</h2>
+      <p class="text-sm leading-relaxed text-ink-secondary">
+        Glass panels stay behind sharp 1px boundaries, radius stays modest, and prose is tuned for
+        long-form math and code — decoration never outranks legibility.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-6">
+    <h2 class="mb-6 font-display text-2xl font-semibold">Specimens</h2>
+    <div class="grid gap-6 lg:grid-cols-2">
+      <div class={panelRecipe({ tier: "raised", padding: "lg" })}>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Buttons — Svelte island</h3>
+        <ButtonDemo client:load />
+      </div>
+      <div class={panelRecipe({ tier: "raised", padding: "lg" })}>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Inputs — React island</h3>
+        <InputDemo client:load />
+        <div class="mt-4"><BadgeDemo client:load /></div>
+      </div>
+      <div class={panelRecipe({ tier: "glass", padding: "lg" })}>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Switch on glass — Svelte island</h3>
+        <SwitchDemo client:load />
+      </div>
+      <div class={panelRecipe({ tier: "flat", padding: "lg" })}>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Every component, both frameworks</h3>
+        <ul class="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
+          {
+            demos.map((d) => (
+              <li>
+                <a href={`/components/${d.slug}`} class={linkRecipe({ subtle: true })}>
+                  {d.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

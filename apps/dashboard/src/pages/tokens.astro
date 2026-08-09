@@ -1,0 +1,140 @@
+---
+import Base from "../layouts/Base.astro";
+import { parseTokens } from "../../../../scripts/tokens-parse.ts";
+import { panelRecipe } from "../../../../src/recipes/panel.js";
+import css from "../../../../tokens.css?raw";
+
+const tokens = parseTokens(css);
+
+const colorRoles = ["--fui-surface", "--fui-ink", "--fui-accent", "--fui-aurora", "--fui-line", "--fui-glass"];
+const colors = [...tokens.entries()].filter(([name]) => colorRoles.some((r) => name.startsWith(r)));
+const radii = [...tokens.entries()].filter(([name]) => name.startsWith("--fui-radius"));
+const blurs = [...tokens.entries()].filter(([name]) => name.startsWith("--fui-blur"));
+const shadows = [...tokens.entries()].filter(([name]) => name.startsWith("--fui-shadow"));
+const fonts = [...tokens.entries()].filter(([name]) => name.startsWith("--fui-font"));
+const typeScale = [...tokens.entries()].filter(
+  ([name]) => name.startsWith("--fui-text") || name.startsWith("--fui-leading"),
+);
+---
+
+<Base title="Tokens — Foundation UI">
+  <h1 class="font-display text-3xl font-semibold">Tokens</h1>
+  <p class="mt-2 mb-8 max-w-[60ch] text-ink-secondary">
+    Rendered at build time by parsing <code class="font-mono text-sm">tokens.css</code> — the file
+    consumers import is the only source of truth. Edit a token, rebuild, and this page changes.
+  </p>
+
+  <section class="mb-10">
+    <h2 class="mb-4 font-display text-xl font-semibold">Color</h2>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        colors.map(([name, v]) => (
+          <div class={panelRecipe({ tier: "flat", padding: "none", className: "overflow-hidden" })}>
+            <div class="flex h-14">
+              <div class="flex-1" style={`background:${v.light}`} title={`light: ${v.light}`} />
+              <div
+                class="flex-1"
+                data-theme="dark"
+                style={`background:${v.dark ?? v.light}`}
+                title={`dark: ${v.dark ?? v.light}`}
+              />
+            </div>
+            <div class="border-t border-line px-3 py-2">
+              <p class="font-mono text-xs text-ink">{name}</p>
+              <p class="mt-1 font-mono text-[11px] leading-4 text-ink-muted">
+                {v.light}
+                {v.dark && v.dark !== v.light && (
+                  <>
+                    <br />
+                    {v.dark}
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="mb-4 font-display text-xl font-semibold">Radius</h2>
+    <div class="flex flex-wrap gap-4">
+      {
+        radii.map(([name, v]) => (
+          <div class="flex flex-col items-center gap-2">
+            <div
+              class="h-16 w-24 border border-line bg-glass-2 shadow-float-1"
+              style={`border-radius:${v.light}`}
+            />
+            <p class="font-mono text-xs text-ink-muted">
+              {name} · {v.light}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="mb-4 font-display text-xl font-semibold">Glass blur</h2>
+    <div
+      class="grid gap-4 rounded-md border border-line bg-[radial-gradient(30rem_16rem_at_30%_0%,color-mix(in_oklab,var(--fui-accent)_35%,transparent),transparent),radial-gradient(24rem_14rem_at_80%_100%,color-mix(in_oklab,var(--fui-aurora)_30%,transparent),transparent)] p-6 sm:grid-cols-3"
+    >
+      {
+        blurs.map(([name, v]) => (
+          <div
+            class="rounded-md border border-line bg-glass-2 p-4 shadow-float-1"
+            style={`backdrop-filter:blur(${v.light})`}
+          >
+            <p class="font-mono text-xs text-ink">{name}</p>
+            <p class="mt-1 font-mono text-[11px] text-ink-muted">{v.light}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="mb-4 font-display text-xl font-semibold">Elevation</h2>
+    <div class="flex flex-wrap gap-6 py-2">
+      {
+        shadows.map(([name, v]) => (
+          <div
+            class="rounded-md border border-line bg-surface-raised px-6 py-4"
+            style={`box-shadow:${v.light}`}
+          >
+            <p class="font-mono text-xs text-ink-muted">{name}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="mb-4 font-display text-xl font-semibold">Type</h2>
+    <div class="flex flex-col gap-3">
+      {
+        fonts.map(([name, v]) => (
+          <div class={panelRecipe({ tier: "flat" })}>
+            <p class="text-lg" style={`font-family:${v.light}`}>
+              The frost forms sharp, six-fold symmetry.
+            </p>
+            <p class="mt-2 font-mono text-xs text-ink-muted">
+              {name} · {v.light}
+            </p>
+          </div>
+        ))
+      }
+      <div class={panelRecipe({ tier: "flat" })}>
+        {
+          typeScale.map(([name, v]) => (
+            <p class="font-mono text-xs text-ink-muted">
+              {name} · {v.light}
+            </p>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

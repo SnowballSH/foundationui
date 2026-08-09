@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import { panelRecipe } from "../../../../src/recipes/panel.js";
+import { linkRecipe } from "../../../../src/recipes/link.js";
+---
+
+<Base title="Not found — Foundation UI">
+  <div class="flex justify-center py-20">
+    <div class={panelRecipe({ tier: "glass", padding: "lg", className: "max-w-md text-center" })}>
+      <p class="font-display text-5xl font-semibold text-ink-muted">404</p>
+      <p class="mt-3 text-ink-secondary">This page melted away.</p>
+      <p class="mt-5"><a href="/" class={linkRecipe()}>Back to the overview</a></p>
+    </div>
+  </div>
+</Base>
