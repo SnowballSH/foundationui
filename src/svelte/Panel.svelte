@@ -5,6 +5,7 @@
   let {
     tier,
     padding,
+    interactive,
     class: className,
     children,
     ...rest
@@ -12,6 +13,6 @@
     PanelRecipeProps & { class?: string } = $props();
 </script>
 
-<div class={panelRecipe({ tier, padding, className })} {...rest}>
+<div class={panelRecipe({ tier, padding, interactive, className })} {...rest}>
   {@render children?.()}
 </div>

@@ -3,8 +3,17 @@ import { panelRecipe, type PanelRecipeProps } from "../recipes/panel.js";
 
 export type PanelProps = ComponentPropsWithRef<"div"> & PanelRecipeProps;
 
-export function Panel({ tier, padding, className, ...rest }: PanelProps) {
+export function Panel({
+  tier,
+  padding,
+  interactive,
+  className,
+  ...rest
+}: PanelProps) {
   return (
-    <div className={panelRecipe({ tier, padding, className })} {...rest} />
+    <div
+      className={panelRecipe({ tier, padding, interactive, className })}
+      {...rest}
+    />
   );
 }
