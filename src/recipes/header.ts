@@ -5,5 +5,5 @@ export const headerRecipe = cva(
 );
 
 export const headerInnerRecipe = cva(
-  "mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-6 px-4 sm:px-6",
+  "mx-auto flex min-h-14 w-full max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-2 sm:gap-x-6 sm:px-6",
 );

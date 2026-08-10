@@ -1,9 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { discoverDemos } from "../../lib/demos.js";
-import { badgeRecipe } from "../../../../../src/recipes/badge.js";
 import { linkRecipe } from "../../../../../src/recipes/link.js";
 import { panelRecipe } from "../../../../../src/recipes/panel.js";
+import { tabsListRecipe, tabsTriggerRecipe } from "../../../../../src/recipes/tabs.js";
 import {
   codeBlockLabelRecipe,
   codeBlockPreRecipe,
@@ -15,19 +15,34 @@ import SvelteDemoHost from "../../components/SvelteDemoHost.svelte";
 export function getStaticPaths() {
   return discoverDemos().map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry: { slug: entry.slug, title: entry.title, reactSource: entry.reactSource, svelteSource: entry.svelteSource } },
+    props: {
+      entry: {
+        slug: entry.slug,
+        title: entry.title,
+        reactSource: entry.reactSource,
+        svelteSource: entry.svelteSource,
+      },
+    },
   }));
 }
 
 const { entry } = Astro.props;
 const all = discoverDemos();
+
+const frameworks = [
+  { id: "react", label: "React", source: entry.reactSource, file: `${entry.slug}.demo.tsx` },
+  { id: "svelte", label: "Svelte", source: entry.svelteSource, file: `${entry.slug}.demo.svelte` },
+];
 ---
 
-<Base title={`${entry.title} — Foundation UI`}>
+<Base
+  title={`${entry.title} — Foundation UI`}
+  description={`The ${entry.title} component in the SnowballSH Foundation UI design system: React and Svelte implementations sharing one styling recipe, with live demo and source.`}
+>
   <div class="flex flex-col gap-10 lg:flex-row">
     <nav class="lg:w-44" aria-label="Components">
       <p class="mb-2 text-xs font-medium tracking-wide text-ink-muted uppercase">Components</p>
-      <ul class="flex flex-col gap-1 text-sm">
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm lg:flex-col lg:gap-y-1">
         {
           all.map((d) => (
             <li>
@@ -48,34 +63,99 @@ const all = discoverDemos();
     </nav>
 
     <div class="min-w-0 flex-1">
-      <h1 class="font-display text-3xl font-semibold">{entry.title}</h1>
-      <p class="mt-2 mb-8 text-ink-secondary">
-        One recipe, two bindings — rendered side by side from the same source the package ships.
+      <h1 class="font-display text-3xl font-semibold text-balance">{entry.title}</h1>
+      <p class="mt-2 mb-6 text-ink-secondary">
+        One recipe, two bindings — pick a framework; the styling is identical because it comes from
+        the same source the package ships.
       </p>
 
-      <div class="grid gap-6 xl:grid-cols-2">
-        <section>
-          <p class="mb-3"><span class={badgeRecipe({ tone: "accent" })}>React</span></p>
-          <div class={panelRecipe({ tier: "raised", padding: "lg", className: "overflow-x-auto" })}>
-            <ReactDemoHost slug={entry.slug} client:load />
-          </div>
-          <figure class={codeBlockRecipe({ className: "mt-4" })}>
-            <figcaption class={codeBlockLabelRecipe()}>{entry.slug}.demo.tsx</figcaption>
-            <pre class={codeBlockPreRecipe()} tabindex="0"><code>{entry.reactSource}</code></pre>
-          </figure>
-        </section>
-
-        <section>
-          <p class="mb-3"><span class={badgeRecipe({ tone: "aurora" })}>Svelte</span></p>
-          <div class={panelRecipe({ tier: "raised", padding: "lg", className: "overflow-x-auto" })}>
-            <SvelteDemoHost slug={entry.slug} client:load />
-          </div>
-          <figure class={codeBlockRecipe({ className: "mt-4" })}>
-            <figcaption class={codeBlockLabelRecipe()}>{entry.slug}.demo.svelte</figcaption>
-            <pre class={codeBlockPreRecipe()} tabindex="0"><code>{entry.svelteSource}</code></pre>
-          </figure>
-        </section>
+      <div role="tablist" aria-label="Framework" class={tabsListRecipe()}>
+        {
+          frameworks.map((fw, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`fw-tab-${fw.id}`}
+              aria-controls={`fw-panel-${fw.id}`}
+              aria-selected={i === 0 ? "true" : "false"}
+              tabindex={i === 0 ? 0 : -1}
+              data-fw-tab={fw.id}
+              class={tabsTriggerRecipe()}
+            >
+              {fw.label}
+            </button>
+          ))
+        }
       </div>
+
+      {
+        frameworks.map((fw, i) => (
+          <section
+            role="tabpanel"
+            id={`fw-panel-${fw.id}`}
+            aria-labelledby={`fw-tab-${fw.id}`}
+            data-fw-panel={fw.id}
+            hidden={i !== 0}
+            class="min-w-0 pt-6"
+          >
+            <div
+              class={panelRecipe({
+                tier: "raised",
+                padding: "lg",
+                className: "min-w-0 overflow-x-auto",
+              })}
+            >
+              {fw.id === "react" ? (
+                <ReactDemoHost slug={entry.slug} client:load />
+              ) : (
+                <SvelteDemoHost slug={entry.slug} client:load />
+              )}
+            </div>
+            <figure class={codeBlockRecipe({ className: "mt-4 min-w-0" })}>
+              <figcaption class={codeBlockLabelRecipe()}>{fw.file}</figcaption>
+              <pre class={codeBlockPreRecipe()} tabindex="0"><code>{fw.source}</code></pre>
+            </figure>
+          </section>
+        ))
+      }
     </div>
   </div>
+
+  <script is:inline>
+    (() => {
+      const tabs = [...document.querySelectorAll("[data-fw-tab]")];
+      if (!tabs.length) return;
+      const select = (id, persist) => {
+        for (const tab of tabs) {
+          const active = tab.dataset.fwTab === id;
+          tab.setAttribute("aria-selected", String(active));
+          tab.tabIndex = active ? 0 : -1;
+        }
+        for (const panel of document.querySelectorAll("[data-fw-panel]")) {
+          panel.hidden = panel.dataset.fwPanel !== id;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem("fui-framework", id);
+          } catch {}
+        }
+      };
+      let initial = "react";
+      try {
+        const stored = localStorage.getItem("fui-framework");
+        if (stored === "react" || stored === "svelte") initial = stored;
+      } catch {}
+      select(initial, false);
+      for (const [i, tab] of tabs.entries()) {
+        tab.addEventListener("click", () => select(tab.dataset.fwTab, true));
+        tab.addEventListener("keydown", (event) => {
+          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+          event.preventDefault();
+          const next = tabs[(i + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length];
+          select(next.dataset.fwTab, true);
+          next.focus();
+        });
+      }
+    })();
+  </script>
 </Base>

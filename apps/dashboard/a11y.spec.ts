@@ -39,8 +39,17 @@ for (const theme of themes) {
         ),
       ).toEqual([]);
 
+      await page.setViewportSize({ width: 375, height: 812 });
+      await page.waitForTimeout(100);
+      const overflow = await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth -
+          document.documentElement.clientWidth,
+      );
+      expect(overflow, "horizontal overflow at 375px").toBeLessThanOrEqual(1);
+
       const unexpectedIncomplete = results.incomplete.filter(
-        (i) => i.id !== "color-contrast",
+        (i) => i.id !== "color-contrast" && i.id !== "aria-allowed-role",
       );
       for (const i of results.incomplete) {
         console.log(

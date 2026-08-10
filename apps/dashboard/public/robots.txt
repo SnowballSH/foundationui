@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://foundationui.snowballsh.com/sitemap-index.xml
