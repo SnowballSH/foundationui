@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import { type ComponentDocs } from "./docs.js";
 
 export const proseRecipe = cva(
   [
@@ -22,3 +23,15 @@ export const proseRecipe = cva(
     "[&_figure]:my-6 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-sm",
   ].join(" "),
 );
+
+export const proseDocs: ComponentDocs = {
+  element: "div",
+  props: [
+    {
+      name: "html",
+      type: "string",
+      description:
+        "Trusted pre-rendered HTML, injected as-is. Never pass user input.",
+    },
+  ],
+};

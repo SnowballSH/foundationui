@@ -15,7 +15,8 @@ const demos = discoverDemos();
 ---
 
 <Base>
-  <section class="py-8">
+  <section class="flex items-center justify-between gap-6 py-8">
+    <div>
     <p class="mb-3 flex items-center gap-2">
       <span class={badgeRecipe({ tone: "aurora" })}>v{pkg.version}</span>
       <span class={badgeRecipe({ tone: "neutral" })}>{demos.length} components · React & Svelte</span>
@@ -25,15 +26,26 @@ const demos = discoverDemos();
         >Glacial glass</span
       >, sharp edges, built for reading.
     </h1>
-    <p class="mt-4 max-w-[58ch] text-lg leading-relaxed text-ink-secondary">
-      Foundation UI is the design source of truth for SnowballSH frontends. Everything on this site
-      is generated from the same tokens, recipes, and components it documents — the code is the
-      design.
+    <p class="mt-4 max-w-[52ch] text-lg leading-relaxed text-ink-secondary">
+      The design system behind SnowballSH sites. Every page here is built from the tokens and
+      components it documents.
     </p>
     <p class="mt-6 flex gap-4">
       <a href="/tokens" class={linkRecipe()}>Explore the tokens</a>
       <a href="/components/badge" class={linkRecipe({ subtle: true })}>Browse components</a>
     </p>
+    </div>
+    <picture class="pointer-events-none hidden select-none sm:block">
+      <source srcset="/snowball-192.webp" type="image/webp" />
+      <img
+        src="/snowball-192.png"
+        alt=""
+        width="192"
+        height="192"
+        decoding="async"
+        class="motion-safe:animate-drift sm:h-28 sm:w-28 lg:h-36 lg:w-36"
+      />
+    </picture>
   </section>
 
   <div class={dividerRecipe()}></div>
@@ -56,8 +68,8 @@ const demos = discoverDemos();
     <div class={panelRecipe({ tier: "glass" })}>
       <h2 class="mb-1 font-display font-semibold">Reading comfort wins</h2>
       <p class="text-sm leading-relaxed text-ink-secondary">
-        Glass panels stay behind sharp 1px boundaries, radius stays modest, and prose is tuned for
-        long-form math and code — decoration never outranks legibility.
+        Glass panels keep sharp 1px boundaries, radius stays modest, and prose is tuned for
+        long-form math and code. Decoration never outranks legibility.
       </p>
     </div>
   </section>
@@ -66,16 +78,16 @@ const demos = discoverDemos();
     <h2 class="mb-6 font-display text-2xl font-semibold">Specimens</h2>
     <div class="grid gap-6 lg:grid-cols-2">
       <div class={panelRecipe({ tier: "raised", padding: "lg" })}>
-        <h3 class="mb-4 text-sm font-medium text-ink-muted">Buttons — Svelte island</h3>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Buttons · Svelte</h3>
         <ButtonDemo client:load />
       </div>
       <div class={panelRecipe({ tier: "raised", padding: "lg" })}>
-        <h3 class="mb-4 text-sm font-medium text-ink-muted">Inputs — React island</h3>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Inputs · React</h3>
         <InputDemo client:load />
         <div class="mt-4"><BadgeDemo client:load /></div>
       </div>
       <div class={panelRecipe({ tier: "glass", padding: "lg" })}>
-        <h3 class="mb-4 text-sm font-medium text-ink-muted">Switch on glass — Svelte island</h3>
+        <h3 class="mb-4 text-sm font-medium text-ink-muted">Switch on glass · Svelte</h3>
         <SwitchDemo client:load />
       </div>
       <div class={panelRecipe({ tier: "flat", padding: "lg" })}>

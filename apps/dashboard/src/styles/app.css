@@ -4,3 +4,15 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
 @source "../../../../src";
+
+@keyframes drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+@theme inline {
+  --animate-drift: drift 4s ease-in-out infinite alternate;
+}

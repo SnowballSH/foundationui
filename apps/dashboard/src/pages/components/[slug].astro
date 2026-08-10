@@ -29,6 +29,26 @@ export function getStaticPaths() {
 const { entry } = Astro.props;
 const all = discoverDemos();
 
+const recipeModules = import.meta.glob<Record<string, unknown>>(
+  "../../../../../src/recipes/*.ts",
+  { eager: true },
+);
+const camelName = entry.slug.replace(/-(\w)/g, (_, c: string) => c.toUpperCase());
+const docs = recipeModules[`../../../../../src/recipes/${entry.slug}.ts`]?.[
+  `${camelName}Docs`
+] as
+  | {
+      element?: string;
+      props: {
+        name: string;
+        type: string;
+        default?: string;
+        description: string;
+        frameworks?: string[];
+      }[];
+    }
+  | undefined;
+
 const frameworks = [
   { id: "react", label: "React", source: entry.reactSource, file: `${entry.slug}.demo.tsx` },
   { id: "svelte", label: "Svelte", source: entry.svelteSource, file: `${entry.slug}.demo.svelte` },
@@ -36,8 +56,8 @@ const frameworks = [
 ---
 
 <Base
-  title={`${entry.title} — Foundation UI`}
-  description={`The ${entry.title} component in the SnowballSH Foundation UI design system: React and Svelte implementations sharing one styling recipe, with live demo and source.`}
+  title={`${entry.title} · Foundation UI`}
+  description={`The ${entry.title} component in Foundation UI, with React and Svelte implementations, props, live demo, and source.`}
 >
   <div class="flex flex-col gap-10 lg:flex-row">
     <nav class="lg:w-44" aria-label="Components">
@@ -65,8 +85,7 @@ const frameworks = [
     <div class="min-w-0 flex-1">
       <h1 class="font-display text-3xl font-semibold text-balance">{entry.title}</h1>
       <p class="mt-2 mb-6 text-ink-secondary">
-        One recipe, two bindings — pick a framework; the styling is identical because it comes from
-        the same source the package ships.
+        Pick a framework. Both use the same recipe, so the styling matches exactly.
       </p>
 
       <div role="tablist" aria-label="Framework" class={tabsListRecipe()}>
@@ -111,6 +130,46 @@ const frameworks = [
                 <SvelteDemoHost slug={entry.slug} client:load />
               )}
             </div>
+            {
+              docs && (
+                <div class="mt-4 min-w-0 overflow-x-auto rounded-md border border-line bg-surface-raised">
+                  <table class="w-full border-collapse text-left text-sm">
+                    <caption class="sr-only">
+                      {entry.title} props for {fw.label}
+                    </caption>
+                    <thead>
+                      <tr class="border-b border-line bg-glass-3">
+                        <th class="px-3 py-2 font-semibold">Prop</th>
+                        <th class="px-3 py-2 font-semibold">Type</th>
+                        <th class="px-3 py-2 font-semibold">Default</th>
+                        <th class="px-3 py-2 font-semibold">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {docs.props
+                        .filter((p) => !p.frameworks || p.frameworks.includes(fw.id))
+                        .map((p) => (
+                          <tr class="border-b border-line last:border-b-0">
+                            <td class="px-3 py-2 font-mono text-xs">{p.name}</td>
+                            <td class="px-3 py-2 font-mono text-xs text-ink-secondary">{p.type}</td>
+                            <td class="px-3 py-2 font-mono text-xs text-ink-muted">
+                              {p.default ?? ""}
+                            </td>
+                            <td class="min-w-[16rem] px-3 py-2 text-ink-secondary">
+                              {p.description}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p class="mt-2 text-xs text-ink-muted">
+                  {fw.id === "react"
+                    ? `Also takes className and children. Anything else passes through to the ${docs.element ?? "element"}.`
+                    : `Also takes class and snippet children. Anything else passes through to the ${docs.element ?? "element"}.`}
+                </p>
+              )
+            }
             <figure class={codeBlockRecipe({ className: "mt-4 min-w-0" })}>
               <figcaption class={codeBlockLabelRecipe()}>{fw.file}</figcaption>
               <pre class={codeBlockPreRecipe()} tabindex="0"><code>{fw.source}</code></pre>

@@ -14,7 +14,7 @@ const recipes = readdirSync(path("src/recipes"))
   .filter(
     (f) =>
       f.endsWith(".ts") &&
-      !["theme.ts", "scrollable.ts", "code-colors.ts"].includes(f),
+      !["theme.ts", "scrollable.ts", "code-colors.ts", "docs.ts"].includes(f),
   )
   .map((f) => f.replace(/\.ts$/, ""));
 
@@ -43,6 +43,12 @@ for (const slug of recipes) {
     ],
     [`react barrel export of ${name}`, reactBarrel.includes(`${name}`)],
     [`svelte barrel export of ${name}`, svelteBarrel.includes(`${name}`)],
+    [
+      `docs export in src/recipes/${slug}.ts`,
+      readFileSync(path(`src/recipes/${slug}.ts`), "utf8").includes(
+        `${name[0]!.toLowerCase() + name.slice(1)}Docs`,
+      ),
+    ],
   ];
   for (const [desc, ok] of legs)
     if (!ok) problems.push(`${slug}: missing ${desc}`);
