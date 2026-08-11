@@ -15,7 +15,7 @@ Pin a release tarball (no registry):
 ```json
 {
   "dependencies": {
-    "foundationui": "https://github.com/SnowballSH/foundationui/releases/download/v0.5.3/foundationui-0.5.3.tgz"
+    "foundationui": "https://github.com/SnowballSH/foundationui/releases/download/v0.5.4/foundationui-0.5.4.tgz"
   }
 }
 ```
