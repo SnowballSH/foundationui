@@ -18,9 +18,9 @@ export const proseRecipe = cva(
     "[&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-sm",
     "[&_blockquote]:my-6 [&_blockquote]:border-l-2 [&_blockquote]:border-line [&_blockquote]:pl-4 [&_blockquote]:text-ink-secondary",
     "[&_hr]:my-8 [&_hr]:border-line",
-    "[&_svg]:mx-auto [&_svg]:h-auto [&_svg]:max-w-full [&_svg]:bg-[var(--fui-figure-plate)] dark:[&_svg]:rounded-sm dark:[&_svg]:p-3",
+    "[&_svg]:mx-auto [&_svg]:h-auto [&_svg]:max-w-full dark:[&_svg]:invert dark:[&_svg]:hue-rotate-180",
     "[&_sup]:align-super [&_sup]:text-xs",
-    "[&_figure]:my-6 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-sm",
+    "[&_figure]:my-6 [&_img]:mx-auto [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-sm",
   ].join(" "),
 );
 
