@@ -20,3 +20,21 @@ if (
     configurable: true,
   });
 }
+
+if (
+  typeof window !== "undefined" &&
+  typeof window.HTMLDialogElement.prototype.showModal !== "function"
+) {
+  window.HTMLDialogElement.prototype.showModal = function (
+    this: HTMLDialogElement,
+  ) {
+    this.open = true;
+  };
+  window.HTMLDialogElement.prototype.close = function (
+    this: HTMLDialogElement,
+  ) {
+    if (!this.open) return;
+    this.open = false;
+    this.dispatchEvent(new Event("close"));
+  };
+}

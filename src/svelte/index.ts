@@ -2,6 +2,7 @@ export { default as Badge } from "./Badge.svelte";
 export { default as Button } from "./Button.svelte";
 export { default as Callout } from "./Callout.svelte";
 export { default as CodeBlock } from "./CodeBlock.svelte";
+export { default as Dialog } from "./Dialog.svelte";
 export { default as Divider } from "./Divider.svelte";
 export { default as Footer } from "./Footer.svelte";
 export { default as Header } from "./Header.svelte";

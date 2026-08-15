@@ -2,6 +2,7 @@ export { Badge, type BadgeProps } from "./Badge.js";
 export { Button, type ButtonProps } from "./Button.js";
 export { Callout, type CalloutProps } from "./Callout.js";
 export { CodeBlock, type CodeBlockProps } from "./CodeBlock.js";
+export { Dialog, type DialogProps } from "./Dialog.js";
 export { Divider, type DividerProps } from "./Divider.js";
 export { Footer, type FooterProps } from "./Footer.js";
 export { Header, type HeaderProps } from "./Header.js";
