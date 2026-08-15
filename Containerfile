@@ -7,6 +7,9 @@ WORKDIR /build/apps/dashboard
 RUN bun install --frozen-lockfile && bun run build && rm -rf node_modules /build/node_modules
 
 FROM docker.io/library/caddy:2@sha256:844f60b64e4724a5aa8245e019dace0d3f199f7433ce6c57676cb30a920dbad9
+ARG SOURCE_COMMIT=unknown
+LABEL org.opencontainers.image.source="https://github.com/SnowballSH/foundationui"
+LABEL org.opencontainers.image.revision="${SOURCE_COMMIT}"
 RUN setcap -r /usr/bin/caddy
 COPY Caddyfile.container /etc/caddy/Caddyfile
 COPY --from=build /build/apps/dashboard/dist /srv
