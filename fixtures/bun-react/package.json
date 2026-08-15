@@ -7,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "foundationui": "file:../../foundationui-0.5.4.tgz",
+    "foundationui": "file:../../foundationui-0.5.5.tgz",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
