@@ -13,7 +13,6 @@ http://:8080 {
 	header /_astro/* Cache-Control "public, max-age=31536000, immutable"
 	header /snowball-* Cache-Control "public, max-age=604800"
 	header /apple-touch-icon.png Cache-Control "public, max-age=604800"
-	header X-Content-Type-Options nosniff
 
 	handle_errors {
 		rewrite * /404.html
